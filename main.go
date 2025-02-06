@@ -19,8 +19,8 @@ func main() {
 	router := http.NewServeMux()
 
 	// Corrected route definitions
-	router.HandleFunc("/countryinfo/v1/info/{country}", RestCountriesAPI.GetCountryInfoHandler)
-	router.HandleFunc("/countryinfo/v1/population/{country}", CountriesNowAPI.GetPopulationHandler)
+	router.HandleFunc("/countryinfo/v1/info/{countryCode}", RestCountriesAPI.GetCountryInfoHandler)
+	router.HandleFunc("/countryinfo/v1/population/{countryCode}", CountriesNowAPI.GetPopulationByYearRangeHandler)
 	router.HandleFunc("/countryinfo/v1/status", StatusHandler.StatusHandler)
 
 	log.Println("Running on port", port)

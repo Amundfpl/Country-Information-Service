@@ -1,6 +1,6 @@
 package CountriesNowAPI
 
-// Structs for API response
+// Struct for Population API response
 type PopulationResponse struct {
 	Error bool   `json:"error"`
 	Msg   string `json:"msg"`
