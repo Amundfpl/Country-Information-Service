@@ -2,71 +2,48 @@ package StatusHandler
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
-	"sync"
 	"time"
 )
 
-// Start time to track uptime
+// Store service start time
 var startTime = time.Now()
 
-// StatusResponse struct matching the expected response format
-type StatusResponse struct {
-	CountriesNowAPI  int    `json:"countriesnowapi"`
-	RestCountriesAPI int    `json:"restcountriesapi"`
-	Version          string `json:"version"`
-	Uptime           int64  `json:"uptime"`
-}
-
-// Check API status by sending a HEAD request
-func checkAPIStatus(url string) int {
-	resp, err := http.Head(url) // Use HEAD to just get status without fetching data
-	if err != nil {
-		return http.StatusServiceUnavailable // Return 503 if the request fails
-	}
-	defer resp.Body.Close()
-	return resp.StatusCode
-}
-
-// StatusHandler handles API health checks
 func StatusHandler(w http.ResponseWriter, r *http.Request) {
-	// URLs of the APIs to check
-	countriesNowURL := "http://129.241.150.113:3500/api/v0.1/countries"
-	restCountriesURL := "http://129.241.150.113:8080/v3.1/all"
+	// ✅ Step 1: Check API statuses (now includes status codes!)
+	countriesNowAPIStatus := checkAPIStatus("http://129.241.150.113:3500/api/v0.1/countries/population")
+	restCountriesAPIStatus := checkAPIStatus("http://129.241.150.113:8080/v3.1/all")
 
-	// Use goroutines and WaitGroup to check APIs concurrently
-	var wg sync.WaitGroup
-	var countriesNowStatus, restCountriesStatus int
+	// ✅ Step 2: Calculate uptime
+	uptime := time.Now().Unix() - startTime.Unix()
 
-	wg.Add(2)
-
-	// Check CountriesNow API
-	go func() {
-		defer wg.Done()
-		countriesNowStatus = checkAPIStatus(countriesNowURL)
-	}()
-
-	// Check REST Countries API
-	go func() {
-		defer wg.Done()
-		restCountriesStatus = checkAPIStatus(restCountriesURL)
-	}()
-
-	// Wait for both API checks to complete
-	wg.Wait()
-
-	// Calculate uptime in seconds
-	uptime := int64(time.Since(startTime).Seconds())
-
-	// Prepare response
+	// ✅ Step 3: Build structured response
 	response := StatusResponse{
-		CountriesNowAPI:  countriesNowStatus,
-		RestCountriesAPI: restCountriesStatus,
+		CountriesNowAPI:  countriesNowAPIStatus,
+		RestCountriesAPI: restCountriesAPIStatus,
 		Version:          "v1",
 		Uptime:           uptime,
 	}
 
-	// Return JSON response
+	// ✅ Step 4: Return **pretty-printed** JSON response
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(response)
+	prettyJSON, err := json.MarshalIndent(response, "", "    ") // Adds spaces for readability
+	if err != nil {
+		http.Error(w, "Failed to format JSON", http.StatusInternalServerError)
+		return
+	}
+	w.Write(prettyJSON)
+}
+
+// Helper function to check API status **with status code**
+func checkAPIStatus(url string) string {
+	resp, err := http.Get(url)
+	if err != nil {
+		return "DOWN"
+	}
+	defer resp.Body.Close()
+
+	// ✅ Returns both **status code and text** (e.g., "200 OK")
+	return fmt.Sprintf("%d %s", resp.StatusCode, http.StatusText(resp.StatusCode))
 }

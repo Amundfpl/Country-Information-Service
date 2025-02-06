@@ -10,49 +10,25 @@ import (
 	"strconv"
 )
 
-// API struct for decoding response
-type APIResponse struct {
-	Name struct {
-		Common string `json:"common"`
-	} `json:"name"`
-	Continents []string          `json:"continents"`
-	Population int               `json:"population"`
-	Languages  map[string]string `json:"languages"`
-	Borders    []string          `json:"borders"`
-	Flag       struct {
-		Png string `json:"png"`
-	} `json:"flags"`
-	Capital []string `json:"capital"`
-}
-
-// Struct for Cities API response
-type CitiesResponse struct {
-	Error bool     `json:"error"`
-	Msg   string   `json:"msg"`
-	Data  []string `json:"data"`
-}
-
 func GetCountryInfoHandler(w http.ResponseWriter, r *http.Request) {
 	countryCode := r.PathValue("countryCode")
 	limitStr := r.URL.Query().Get("limit")
+	defaultLimit := 10 // Default limit if not provided
+
+	// Convert limit to int (if provided), else use default
+	limit := defaultLimit
+	if limitStr != "" {
+		if parsedLimit, err := strconv.Atoi(limitStr); err == nil && parsedLimit > 0 {
+			limit = parsedLimit
+		}
+	}
 
 	if countryCode == "" {
 		http.Error(w, "Country code is required", http.StatusBadRequest)
 		return
 	}
 
-	// Set default limit if not provided
-	limit := 10
-	if limitStr != "" {
-		var err error
-		limit, err = strconv.Atoi(limitStr)
-		if err != nil || limit <= 0 {
-			http.Error(w, "Invalid limit value", http.StatusBadRequest)
-			return
-		}
-	}
-
-	// ✅ Fetch country info from REST Countries API
+	// ✅ Step 1: Fetch Country Data from REST Countries API
 	restCountriesURL := fmt.Sprintf("http://129.241.150.113:8080/v3.1/alpha/%s", countryCode)
 	resp, err := http.Get(restCountriesURL)
 	if err != nil {
@@ -63,29 +39,19 @@ func GetCountryInfoHandler(w http.ResponseWriter, r *http.Request) {
 
 	bodyBytes, _ := io.ReadAll(resp.Body)
 
-	var countryData []APIResponse
+	var countryData []CountryInfoResponse
 	err = json.Unmarshal(bodyBytes, &countryData)
-	if err != nil {
+	if err != nil || len(countryData) == 0 {
 		http.Error(w, "Failed to decode country info", http.StatusInternalServerError)
 		return
 	}
 
-	if len(countryData) == 0 {
-		http.Error(w, "No country data found", http.StatusNotFound)
-		return
-	}
+	// Extract full country name
+	fullCountryName := countryData[0].Name.Common
 
-	country := countryData[0] // Take the first country
-
-	// Extract first capital if available
-	capital := ""
-	if len(country.Capital) > 0 {
-		capital = country.Capital[0]
-	}
-
-	// ✅ Fetch cities from CountriesNow API
+	// ✅ Step 2: Fetch Cities from CountriesNow API
 	citiesAPIURL := "http://129.241.150.113:3500/api/v0.1/countries/cities"
-	requestBody, _ := json.Marshal(map[string]string{"country": country.Name.Common})
+	requestBody, _ := json.Marshal(map[string]string{"country": fullCountryName})
 
 	citiesResp, err := http.Post(citiesAPIURL, "application/json", bytes.NewBuffer(requestBody))
 	if err != nil {
@@ -103,28 +69,35 @@ func GetCountryInfoHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	cities := citiesData.Data
-	sort.Strings(cities) // Sort alphabetically
+	// ✅ Step 3: Sort Cities Alphabetically
+	sort.Strings(citiesData.Data)
 
-	if len(cities) > limit {
-		cities = cities[:limit]
+	// ✅ Step 4: Apply Limit (Default: 10 Cities)
+	if len(citiesData.Data) > limit {
+		citiesData.Data = citiesData.Data[:limit]
 	}
 
-	// ✅ Convert to final struct
-	finalResponse := map[string]interface{}{
-		"name":       country.Name.Common,
-		"continents": country.Continents,
-		"population": country.Population,
-		"languages":  country.Languages,
-		"borders":    country.Borders,
-		"flag":       country.Flag.Png,
-		"capital":    capital,
-		"cities":     cities,
+	// Extract capital safely
+	capital := ""
+	if len(countryData[0].Capital) > 0 {
+		capital = countryData[0].Capital[0]
 	}
 
-	// ✅ Return response with pretty JSON formatting
+	// ✅ Step 5: Create Struct Response
+	countryInfo := CountryInfo{
+		Name:       fullCountryName,
+		Continents: countryData[0].Continents,
+		Population: countryData[0].Population,
+		Languages:  countryData[0].Languages,
+		Borders:    countryData[0].Borders,
+		Flag:       countryData[0].Flags.Png,
+		Capital:    capital,
+		Cities:     citiesData.Data,
+	}
+
+	// ✅ Step 6: Return JSON Response
 	w.Header().Set("Content-Type", "application/json")
-	prettyJSON, err := json.MarshalIndent(finalResponse, "", "    ") // 4-space indentation
+	prettyJSON, err := json.MarshalIndent(countryInfo, "", "    ")
 	if err != nil {
 		http.Error(w, "Failed to format JSON", http.StatusInternalServerError)
 		return
