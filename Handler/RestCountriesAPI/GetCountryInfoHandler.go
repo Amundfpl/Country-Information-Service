@@ -15,12 +15,15 @@ func GetCountryInfoHandler(w http.ResponseWriter, r *http.Request) {
 	limitStr := r.URL.Query().Get("limit")
 	defaultLimit := 10 // Default limit if not provided
 
-	// Convert limit to int (if provided), else use default
+	// ✅ Validate and convert limit
 	limit := defaultLimit
 	if limitStr != "" {
-		if parsedLimit, err := strconv.Atoi(limitStr); err == nil && parsedLimit > 0 {
-			limit = parsedLimit
+		parsedLimit, err := strconv.Atoi(limitStr)
+		if err != nil || parsedLimit <= 0 {
+			http.Error(w, "Invalid limit parameter", http.StatusBadRequest)
+			return
 		}
+		limit = parsedLimit
 	}
 
 	if countryCode == "" {
@@ -31,7 +34,7 @@ func GetCountryInfoHandler(w http.ResponseWriter, r *http.Request) {
 	// ✅ Step 1: Fetch Country Data from REST Countries API
 	restCountriesURL := fmt.Sprintf("http://129.241.150.113:8080/v3.1/alpha/%s", countryCode)
 	resp, err := http.Get(restCountriesURL)
-	if err != nil {
+	if err != nil || resp.StatusCode != http.StatusOK {
 		http.Error(w, "Failed to fetch country info", http.StatusInternalServerError)
 		return
 	}
@@ -54,7 +57,7 @@ func GetCountryInfoHandler(w http.ResponseWriter, r *http.Request) {
 	requestBody, _ := json.Marshal(map[string]string{"country": fullCountryName})
 
 	citiesResp, err := http.Post(citiesAPIURL, "application/json", bytes.NewBuffer(requestBody))
-	if err != nil {
+	if err != nil || citiesResp.StatusCode != http.StatusOK {
 		http.Error(w, "Failed to fetch cities", http.StatusInternalServerError)
 		return
 	}
