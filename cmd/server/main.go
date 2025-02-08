@@ -1,7 +1,7 @@
 package main
 
 import (
-	"Assignment_1/server"
+	"Assignment_1/interntal/server"
 	"log"
 )
 

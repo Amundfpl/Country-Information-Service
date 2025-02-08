@@ -1,70 +1,97 @@
-# Country-Information-Service
+# Assignment_1 - Country Information API
 
-##  Project Overview
-This project is a RESTful API service that provides country-related information using external APIs. The service fetches country details, population statistics, and API health status.
-
-##  Supported Endpoints
-###  General Country Information
-- **GET** `/countryinfo/v1/info/{countryCode}`
-    - Retrieves details such as country name, population, capital, languages, borders, flag, and a list of cities.
-    - Supports an optional **`limit`** parameter to control the number of cities returned.
-
-###  Population Data
-- **GET** `/countryinfo/v1/population/{countryCode}`
-    - Returns full historical population data.
-- **GET** `/countryinfo/v1/population/{countryCode}?limit={startYear-endYear}`
-    - Filters population history by a given time frame and computes the mean population.
-
-###  API Health Check
-- **GET** `/countryinfo/v1/status`
-    - Provides the availability status of external APIs and the uptime of the service.
+##  Overview
+This project provides a **RESTful API** that retrieves country-related information, including **general details, population statistics, and API service status.** It is structured using best practices to maintain **scalability, readability, and modularity.**
 
 ---
 
-##  Request/Response Specification
-For the specifications, the following syntax applies:
-
-- **`{:value}`** indicates **mandatory** input parameters specified by the user.
-- **`{value}`** indicates **optional** input specified by the user, where `value` can itself contain further optional input.
-- The same notation applies for HTTP parameters:
-    - **`{?:param}`** is a **mandatory** parameter.
-    - **`{?param}`** is an **optional** parameter.
-
----
-
-##  Setup and Usage
-### **1️⃣ Prerequisites**
-- Go **1.19+** installed.
-- Internet connection to access external APIs.
-
-### **2️⃣ Running the API Locally**
-```sh
-# Clone the repository
-git clone https://github.com/amundfpl/country-info-service.git
-cd country-info-service
-
-# Run the application
-go run main.go
+## Project Structure
 ```
-
-### **3️⃣ Example API Requests**
-```sh
-# Fetch country information (default 10 cities)
-curl -X GET "http://localhost:8080/countryinfo/v1/info/NO"
-
-# Fetch country information with 5 cities
-curl -X GET "http://localhost:8080/countryinfo/v1/info/NO?limit=5"
-
-# Get population history from 2010 to 2015
-curl -X GET "http://localhost:8080/countryinfo/v1/population/NO?limit=2010-2015"
-
-# Check API status
-curl -X GET "http://localhost:8080/countryinfo/v1/status"
+Assignment_1/
+│── cmd/               #  Application entry points
+│   ├── server/
+│   │   ├── main.go    # Starts the server
+│
+│── internal/          #  Internal code (not importable by other projects)
+│   ├── server/        # Server-related logic
+│   │   ├── server.go  # Initializes the server
+│   │   ├── router.go  # Registers all API routes
+│
+│── handlers/          #  Request handlers (business logic entry point)
+│   ├── country_handler.go  # Handles country information requests
+│   ├── population_handler.go  # Handles population-related requests
+│   ├── status_handler.go  # Handles API status requests
+│
+│── models/            #  Data models (structs for JSON parsing)
+│   ├── country.go  # Structs for country information
+│   ├── population.go  # Structs for population responses
+│   ├── status.go  # Structs for API status response
+│
+│── services/          #  Business logic (core functionality)
+│   ├── country_service.go  # Fetches country info from APIs
+│   ├── population_service.go  # Fetches population data from APIs
+│   ├── status_service.go  # Retrieves API status and uptime
+│
+│── utils/             #  Utility functions (helpers & common functions)
+│   ├── response.go  # Helper functions for handling responses
+│
+│── go.mod             #  Go module file
+│── README.md          #  Documentation
 ```
 
 ---
 
-##  Notes
-- Ensure that the API endpoints you are calling match the **self-hosted versions** provided in the project documentation.
-- Use **Postman** or another REST client to explore the API responses in more detail.
+##  Getting Started
+###  Clone the Repository
+```sh
+ git clone https://github.com/your-username/Assignment_1.git
+ cd Assignment_1
+```
+
+###  Install Dependencies
+```sh
+ go mod tidy
+```
+
+###  Set Up Environment Variables
+Create a **.env** file in the root directory and add API URLs:
+```sh
+PORT=8080
+REST_COUNTRIES_API=http://129.241.150.113:8080/v3.1
+COUNTRIES_NOW_API=http://129.241.150.113:3500/api/v0.1
+```
+
+### Run the Server
+```sh
+ go run cmd/server/main.go
+```
+
+---
+
+## API Endpoints
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/countryinfo/v1/info/{countryCode}` | GET | Retrieve general country information |
+| `/countryinfo/v1/population/{countryCode}` | GET | Get historical population data |
+| `/countryinfo/v1/status` | GET | Check API status and uptime |
+
+---
+
+## Project Best Practices
+✔ **Separation of Concerns:** Routes, handlers, services, and models are kept in separate directories.  
+✔ **Scalability:** The modular structure allows easy expansion.  
+✔ **Code Reusability:** Services handle business logic, making handlers simpler.  
+✔ **Readability:** The project follows clean code principles for better maintainability.
+
+---
+
+## Contributing
+Feel free to fork this repository and submit pull requests with improvements or bug fixes.
+
+---
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
 

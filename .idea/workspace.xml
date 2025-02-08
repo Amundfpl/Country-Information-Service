@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8aa08e8-4e2b-4c89-8f4e-9ead5f69bc2d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/handlers/status_handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handler/country_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/country_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handler/home_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/home_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handler/population_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/population_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handler/status_handler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/interntal/server/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/interntal/server/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,36 +53,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;Go Build.go build Assignment_1.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/amund/Downloads/CountryInfoService-main/CountryInfoService-main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/amund/OneDrive - NTNU/Dokumenter/NTNU_2/Semester_4/CloudTechnologies/Assignment_1/main.go&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "Go Build.go build Assignment_1.executor": "Run",
+    "Go Build.go build Assignment_1/cmd/server.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "master",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "C:/Users/amund/Downloads/CountryInfoService-main/CountryInfoService-main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/amund/OneDrive - NTNU/Dokumenter/NTNU_2/Semester_4/CloudTechnologies/Assignment_1/main.go",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\amund\OneDrive - NTNU\Dokumenter\NTNU_2\Semester_4\CloudTechnologies\Assignment_1\interntal" />
+      <recent name="C:\Users\amund\OneDrive - NTNU\Dokumenter\NTNU_2\Semester_4\CloudTechnologies\Assignment_1\cmd\server" />
+      <recent name="C:\Users\amund\OneDrive - NTNU\Dokumenter\NTNU_2\Semester_4\CloudTechnologies\Assignment_1\server" />
       <recent name="C:\Users\amund\OneDrive - NTNU\Dokumenter\NTNU_2\Semester_4\CloudTechnologies\Assignment_1" />
-      <recent name="C:\Users\amund\OneDrive - NTNU\Dokumenter\NTNU_2\Semester_4\CloudTechnologies\Assignment_1\config" />
-      <recent name="C:\Users\amund\OneDrive - NTNU\Dokumenter\NTNU_2\Semester_4\CloudTechnologies\Assignment_1\Handler" />
-      <recent name="C:\Users\amund\OneDrive - NTNU\Dokumenter\NTNU_2\Semester_4\CloudTechnologies\Assignment_1\Handler\StatusHandler" />
-      <recent name="C:\Users\amund\OneDrive - NTNU\Dokumenter\NTNU_2\Semester_4\CloudTechnologies\Assignment_1\Handler\CountriesNowAPI" />
+      <recent name="C:\Users\amund\OneDrive - NTNU\Dokumenter\NTNU_2\Semester_4\CloudTechnologies\Assignment_1\cmd" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build Assignment_1/cmd/server">
     <configuration name="go build Assignment_1" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="Assignment_1" />
       <working_directory value="$PROJECT_DIR$" />
@@ -83,8 +93,18 @@
       <filePath value="$PROJECT_DIR$/main.go" />
       <method v="2" />
     </configuration>
+    <configuration name="go build Assignment_1/cmd/server" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="Assignment_1" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="Assignment_1/cmd/server" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/cmd/server/main.go" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build Assignment_1/cmd/server" />
         <item itemvalue="Go Build.go build Assignment_1" />
       </list>
     </recent_temporary>

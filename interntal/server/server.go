@@ -1,7 +1,6 @@
 package server
 
 import (
-	"Assignment_1/router"
 	"log"
 	"net/http"
 	"os"
@@ -15,7 +14,7 @@ func StartServer() {
 		port = "8080"
 	}
 
-	r := router.InitializeRoutes()
+	r := InitializeRoutes()
 
 	log.Println("Server running on port", port)
 	if err := http.ListenAndServe(":"+port, r); err != nil {

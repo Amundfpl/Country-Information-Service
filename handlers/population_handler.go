@@ -1,34 +1,26 @@
-package handler
+package handlers
 
 import (
-	"Assignment_1/services"
-	"encoding/json"
+	"Assignment_1/interntal/utils"
+	"Assignment_1/pkg/services"
 	"net/http"
 )
 
 // GetPopulationByYearRangeHandler handles API requests for population data
 func GetPopulationByYearRangeHandler(w http.ResponseWriter, r *http.Request) {
 	countryCode := r.PathValue("countryCode")
-	yearRange := r.URL.Query().Get("limit") // e.g., "2010-2015"
+	yearRange := r.URL.Query().Get("limit")
 
 	if countryCode == "" {
 		http.Error(w, "Country code is required", http.StatusBadRequest)
 		return
 	}
 
-	// Call the service function
 	response, err := services.FetchPopulationByYearRange(countryCode, yearRange)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	// Return JSON Response
-	w.Header().Set("Content-Type", "application/json")
-	prettyJSON, err := json.MarshalIndent(response, "", "    ")
-	if err != nil {
-		http.Error(w, "Failed to format JSON", http.StatusInternalServerError)
-		return
-	}
-	w.Write(prettyJSON)
+	utils.RespondWithJSON(w, response) // ✅ Use helper function
 }

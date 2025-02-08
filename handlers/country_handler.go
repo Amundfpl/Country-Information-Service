@@ -1,7 +1,7 @@
-package handler
+package handlers
 
 import (
-	"Assignment_1/services"
+	"Assignment_1/pkg/services"
 	"encoding/json"
 	"net/http"
 )
@@ -9,14 +9,9 @@ import (
 // GetCountryInfoHandler handles API requests for country details
 func GetCountryInfoHandler(w http.ResponseWriter, r *http.Request) {
 	countryCode := r.PathValue("countryCode")
-	limitStr := r.URL.Query().Get("limit") // Optional limit parameter
+	limitStr := r.URL.Query().Get("limit")
 
-	if countryCode == "" {
-		http.Error(w, "Country code is required", http.StatusBadRequest)
-		return
-	}
-
-	// Call the service function
+	// Fetch country info from the service layer
 	countryInfo, err := services.FetchCountryInfo(countryCode, limitStr)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
