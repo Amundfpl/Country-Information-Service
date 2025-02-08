@@ -16,7 +16,7 @@ func GetPopulationByYearRangeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Call the service function to fetch population data
+	// Call the service function
 	response, err := services.FetchPopulationByYearRange(countryCode, yearRange)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

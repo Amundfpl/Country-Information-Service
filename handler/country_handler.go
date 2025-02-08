@@ -4,30 +4,20 @@ import (
 	"Assignment_1/services"
 	"encoding/json"
 	"net/http"
-	"strconv"
 )
 
-// GetCountryInfoHandler is the HTTP handler for fetching country info
+// GetCountryInfoHandler handles API requests for country details
 func GetCountryInfoHandler(w http.ResponseWriter, r *http.Request) {
 	countryCode := r.PathValue("countryCode")
-	limitStr := r.URL.Query().Get("limit")
-	defaultLimit := 10
-
-	// Convert limit to int (if provided), else use default
-	limit := defaultLimit
-	if limitStr != "" {
-		if parsedLimit, err := strconv.Atoi(limitStr); err == nil && parsedLimit > 0 {
-			limit = parsedLimit
-		}
-	}
+	limitStr := r.URL.Query().Get("limit") // Optional limit parameter
 
 	if countryCode == "" {
 		http.Error(w, "Country code is required", http.StatusBadRequest)
 		return
 	}
 
-	// Call service to get country info
-	countryInfo, err := services.FetchCountryInfo(countryCode, limit)
+	// Call the service function
+	countryInfo, err := services.FetchCountryInfo(countryCode, limitStr)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

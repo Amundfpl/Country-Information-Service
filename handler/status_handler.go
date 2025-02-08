@@ -6,14 +6,14 @@ import (
 	"net/http"
 )
 
-// StatusHandler handles the `/status` request
+// StatusHandler handles requests for API status
 func StatusHandler(w http.ResponseWriter, r *http.Request) {
-	// Call the service function to fetch API statuses
-	response := services.FetchServiceStatus()
+	// Fetch service status
+	status := services.FetchServiceStatus()
 
-	// Return pretty-printed JSON response
+	// Return JSON Response
 	w.Header().Set("Content-Type", "application/json")
-	prettyJSON, err := json.MarshalIndent(response, "", "    ")
+	prettyJSON, err := json.MarshalIndent(status, "", "    ")
 	if err != nil {
 		http.Error(w, "Failed to format JSON", http.StatusInternalServerError)
 		return

@@ -6,13 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="d8aa08e8-4e2b-4c89-8f4e-9ead5f69bc2d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Handler/CountriesNowAPI/GetPopulationHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handler/GetPopulationHandler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Handler/CountriesNowAPI/models.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Handler/RestCountriesAPI/GetCountryInfoHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handler/countryHandler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Handler/RestCountriesAPI/model.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Handler/StatusHandler/StatusHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handler/StatusHandler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Handler/StatusHandler/model.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment_1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment_1.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handler/country_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handler/country_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handler/population_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handler/population_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handler/status_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handler/status_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/country.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/country.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/country.go" beforeDir="false" afterPath="$PROJECT_DIR$/services/country.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/population.go" beforeDir="false" afterPath="$PROJECT_DIR$/services/population.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/status.go" beforeDir="false" afterPath="$PROJECT_DIR$/services/status.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
