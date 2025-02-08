@@ -1,4 +1,4 @@
-package StatusHandler
+package models
 
 // Struct for the JSON response
 type StatusResponse struct {

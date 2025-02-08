@@ -1,4 +1,4 @@
-package CountriesNowAPI
+package models
 
 // Struct for Population API response
 type PopulationResponse struct {

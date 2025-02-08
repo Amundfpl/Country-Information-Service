@@ -1,6 +1,4 @@
-package RestCountriesAPI
-
-// CountryInfo struct to match JSON response
+package models
 
 // Struct for REST Countries API response
 type CountryInfoResponse struct {
