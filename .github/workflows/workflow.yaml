@@ -20,16 +20,16 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.20  # Change this if needed
+          go-version: 1.20  # ✅ Make sure this is at least 1.11+
 
       - name: Verify Go Installation
-        run: go version  # Ensures Go is installed correctly
+        run: go version  # ✅ Check that the correct version is installed
 
-      - name: Initialize Go Modules
-        run: go mod init Assignment_1 || true  # Ensures go.mod exists
+      - name: Initialize Go Modules (if needed)
+        run: go mod init Assignment_1 || true  # ✅ Ensure go.mod exists
 
       - name: Install Dependencies
-        run: go mod tidy  # Fixes the issue
+        run: go mod tidy  # ✅ Now this should work correctly!
 
       - name: Build Application
         run: go build -v ./cmd/server
