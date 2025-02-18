@@ -9,5 +9,8 @@ import (
 // StatusHandler handles API status requests
 func StatusHandler(w http.ResponseWriter, r *http.Request) {
 	status := services.FetchServiceStatus()
-	utils.RespondWithJSON(w, status) //  Use helper function
+
+	if err := utils.RespondWithJSON(w, status); err != nil {
+		http.Error(w, "Failed to write response", http.StatusInternalServerError)
+	} //  Use helper function
 }

@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8aa08e8-4e2b-4c89-8f4e-9ead5f69bc2d" name="Changes" comment="" />
+    <list default="true" id="d8aa08e8-4e2b-4c89-8f4e-9ead5f69bc2d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/workflow.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/workflow.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/country_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/country_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/home_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/home_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/population_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/population_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/status_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/status_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interntal/utils/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/interntal/utils/response.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

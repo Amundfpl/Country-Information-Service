@@ -48,5 +48,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	</html>
 	`
 
-	fmt.Fprint(w, html)
+	if _, err := fmt.Fprint(w, html); err != nil {
+		http.Error(w, "Failed to load API documentation", http.StatusInternalServerError)
+	}
 }
