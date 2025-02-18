@@ -3,10 +3,10 @@ name: Go CI/CD Pipeline
 on:
   push:
     branches:
-      - master
+      - master  # Runs on pushes to master
   pull_request:
     branches:
-      - master
+      - master  # Runs on PRs to master
 
 jobs:
   build-and-test:
@@ -20,18 +20,16 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.20  # Update based on your Go version
+          go-version: 1.20  # Change this if needed
 
-      - name: Cache Go Modules
-        uses: actions/cache@v3
-        with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
+      - name: Verify Go Installation
+        run: go version  # Ensures Go is installed correctly
+
+      - name: Initialize Go Modules
+        run: go mod init Assignment_1 || true  # Ensures go.mod exists
 
       - name: Install Dependencies
-        run: go mod tidy
+        run: go mod tidy  # Fixes the issue
 
       - name: Build Application
         run: go build -v ./cmd/server
@@ -50,17 +48,3 @@ jobs:
             echo "Go code is not formatted correctly. Run 'gofmt -w .'"
             exit 1
           fi
-
-  # Optional Deployment Job
-  deploy:
-    name: Deploy Application (Optional)
-    runs-on: ubuntu-latest
-    needs: build-and-test  # Run only if build & tests pass
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Deploy to Server
-        run: |
-          echo "Deploying the Go application..."
