@@ -1,6 +1,7 @@
 package server
 
 import (
+	"Assignment_1/interntal/utils"
 	"log"
 	"net/http"
 	"os"
@@ -11,7 +12,7 @@ func StartServer() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		log.Println("$PORT has not been set. Default: 8080")
-		port = "8080"
+		port = utils.DefaultPort
 	}
 
 	r := InitializeRoutes()

@@ -1,6 +1,7 @@
 package services
 
 import (
+	"Assignment_1/interntal/utils"
 	"Assignment_1/models"
 	"fmt"
 	"net/http"
@@ -13,8 +14,8 @@ var startTime = time.Now()
 // FetchServiceStatus gathers API statuses and uptime
 func FetchServiceStatus() models.StatusResponse {
 	return models.StatusResponse{
-		CountriesNowAPI:  getAPIStatus("http://129.241.150.113:3500/api/v0.1/countries/population"),
-		RestCountriesAPI: getAPIStatus("http://129.241.150.113:8080/v3.1/all"),
+		CountriesNowAPI:  getAPIStatus(utils.CountriesNowAPI + utils.CountriesNowPopulation),
+		RestCountriesAPI: getAPIStatus(utils.RestCountriesAPI + utils.RestCountriesAll),
 		Version:          "v1",
 		Uptime:           time.Now().Unix() - startTime.Unix(),
 	}

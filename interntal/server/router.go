@@ -2,6 +2,7 @@ package server
 
 import (
 	"Assignment_1/handlers"
+	"Assignment_1/interntal/utils"
 	"net/http"
 )
 
@@ -10,12 +11,12 @@ func InitializeRoutes() *http.ServeMux {
 	router := http.NewServeMux()
 
 	// ✅ Register Home Page (API Documentation)
-	router.HandleFunc("/", handlers.HomeHandler)
+	router.HandleFunc(utils.HomeRoute, handlers.HomeHandler)
 
 	// Register API Endpoints
-	router.HandleFunc("/countryinfo/v1/info/{countryCode}", handlers.GetCountryInfoHandler)
-	router.HandleFunc("/countryinfo/v1/population/{countryCode}", handlers.GetPopulationByYearRangeHandler)
-	router.HandleFunc("/countryinfo/v1/status", handlers.StatusHandler)
+	router.HandleFunc(utils.CountryInfoRoute, handlers.GetCountryInfoHandler)
+	router.HandleFunc(utils.PopulationRoute, handlers.GetPopulationByYearRangeHandler)
+	router.HandleFunc(utils.StatusRoute, handlers.StatusHandler)
 
 	return router
 }

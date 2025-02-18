@@ -22,5 +22,5 @@ func GetPopulationByYearRangeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.RespondWithJSON(w, response) // ✅ Use helper function
+	utils.RespondWithJSON(w, response) // Use helper function
 }

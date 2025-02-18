@@ -1,6 +1,7 @@
 package services
 
 import (
+	"Assignment_1/interntal/utils"
 	"Assignment_1/models"
 	"bytes"
 	"encoding/json"
@@ -35,7 +36,7 @@ func FetchPopulationByYearRange(countryCode, yearRange string) (map[string]inter
 
 // getCountryName fetches the full country name from REST Countries API
 func getCountryName(countryCode string) (string, error) {
-	url := fmt.Sprintf("http://129.241.150.113:8080/v3.1/alpha/%s", countryCode)
+	url := fmt.Sprintf("%s%s%s", utils.RestCountriesAPI, utils.RestCountriesByAlpha, countryCode)
 	resp, err := http.Get(url)
 	if err != nil {
 		return "", fmt.Errorf("failed to fetch country name: %v", err)
@@ -54,7 +55,7 @@ func getCountryName(countryCode string) (string, error) {
 
 // fetchPopulationData gets population data from CountriesNow API
 func fetchPopulationData(countryName string) ([]models.PopulationCounts, error) {
-	apiURL := "http://129.241.150.113:3500/api/v0.1/countries/population"
+	apiURL := fmt.Sprintf("%s%s", utils.CountriesNowAPI, utils.CountriesNowPopulation)
 	requestBody, _ := json.Marshal(map[string]string{"country": countryName})
 
 	resp, err := http.Post(apiURL, "application/json", bytes.NewBuffer(requestBody))

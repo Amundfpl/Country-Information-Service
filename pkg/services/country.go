@@ -1,6 +1,7 @@
 package services
 
 import (
+	"Assignment_1/interntal/utils"
 	"Assignment_1/models"
 	"bytes"
 	"encoding/json"
@@ -13,7 +14,7 @@ import (
 
 // FetchCountryInfo retrieves country details and city list based on country code
 func FetchCountryInfo(countryCode, limitStr string) (models.CountryInfo, error) {
-	limit, err := parseLimit(limitStr, 10) // Default limit: 10
+	limit, err := parseLimit(limitStr, utils.DefaultLimit) // Default limit: 10
 	if err != nil {
 		return models.CountryInfo{}, err
 	}
@@ -47,7 +48,7 @@ func parseLimit(limitStr string, defaultLimit int) (int, error) {
 
 // getCountryData fetches country details from REST Countries API
 func getCountryData(countryCode string) (string, models.CountryInfoResponse, error) {
-	url := fmt.Sprintf("http://129.241.150.113:8080/v3.1/alpha/%s", countryCode)
+	url := fmt.Sprintf("%s%s%s", utils.RestCountriesAPI, utils.RestCountriesByAlpha, countryCode)
 	resp, err := http.Get(url)
 	if err != nil || resp.StatusCode != http.StatusOK {
 		return "", models.CountryInfoResponse{}, fmt.Errorf("failed to fetch country info")
@@ -66,7 +67,7 @@ func getCountryData(countryCode string) (string, models.CountryInfoResponse, err
 
 // fetchCities retrieves and sorts city names from CountriesNow API
 func fetchCities(countryName string, limit int) ([]string, error) {
-	apiURL := "http://129.241.150.113:3500/api/v0.1/countries/cities"
+	apiURL := fmt.Sprintf("%s%s", utils.CountriesNowAPI, utils.CountriesNowCities)
 	requestBody, _ := json.Marshal(map[string]string{"country": countryName})
 
 	resp, err := http.Post(apiURL, "application/json", bytes.NewBuffer(requestBody))
