@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 #Deploy the code into the runner
 
       - name: Set up Go
         uses: actions/setup-go@v5

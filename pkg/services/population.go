@@ -22,9 +22,9 @@ func FetchPopulationByYearRange(countryCode, yearRange string) (map[string]inter
 		return nil, err
 	}
 
-	populationCounts, err := fetchPopulationData(fullCountryName)
-	if err != nil {
-		return nil, err
+	populationCounts, err1 := fetchPopulationData(fullCountryName)
+	if err1 != nil {
+		return nil, err1
 	}
 
 	filteredPopulations := filterPopulationByYearRange(populationCounts, yearRange)
@@ -37,16 +37,16 @@ func FetchPopulationByYearRange(countryCode, yearRange string) (map[string]inter
 // getCountryName fetches the full country name from REST Countries API
 func getCountryName(countryCode string) (string, error) {
 	url := fmt.Sprintf("%s%s%s", utils.RestCountriesAPI, utils.RestCountriesByAlpha, countryCode)
-	resp, err := http.Get(url)
-	if err != nil {
-		return "", fmt.Errorf("failed to fetch country name: %v", err)
+	resp, err2 := http.Get(url)
+	if err2 != nil {
+		return "", fmt.Errorf("failed to fetch country name: %v", err2)
 	}
 	defer resp.Body.Close()
 
 	bodyBytes, _ := io.ReadAll(resp.Body)
 
 	var countryData []models.CountryInfoResponse
-	if err := json.Unmarshal(bodyBytes, &countryData); err != nil || len(countryData) == 0 {
+	if err3 := json.Unmarshal(bodyBytes, &countryData); err3 != nil || len(countryData) == 0 {
 		return "", fmt.Errorf("failed to decode country info")
 	}
 
@@ -58,8 +58,8 @@ func fetchPopulationData(countryName string) ([]models.PopulationCounts, error) 
 	apiURL := fmt.Sprintf("%s%s", utils.CountriesNowAPI, utils.CountriesNowPopulation)
 	requestBody, _ := json.Marshal(map[string]string{"country": countryName})
 
-	resp, err := http.Post(apiURL, "application/json", bytes.NewBuffer(requestBody))
-	if err != nil {
+	resp, err4 := http.Post(apiURL, "application/json", bytes.NewBuffer(requestBody))
+	if err4 != nil {
 		return nil, fmt.Errorf("failed to fetch population data")
 	}
 	defer resp.Body.Close()
@@ -67,7 +67,7 @@ func fetchPopulationData(countryName string) ([]models.PopulationCounts, error) 
 	bodyBytes, _ := io.ReadAll(resp.Body)
 
 	var popData models.PopulationResponse
-	if err := json.Unmarshal(bodyBytes, &popData); err != nil || popData.Error {
+	if err5 := json.Unmarshal(bodyBytes, &popData); err5 != nil || popData.Error {
 		return nil, fmt.Errorf("population data not found")
 	}
 

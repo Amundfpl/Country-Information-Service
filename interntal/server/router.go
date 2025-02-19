@@ -10,7 +10,7 @@ import (
 func InitializeRoutes() *http.ServeMux {
 	router := http.NewServeMux()
 
-	// ✅ Register Home Page (API Documentation)
+	// Register Home Page (API Documentation)
 	router.HandleFunc(utils.HomeRoute, handlers.HomeHandler)
 
 	// Register API Endpoints

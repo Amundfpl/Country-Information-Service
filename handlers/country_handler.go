@@ -19,7 +19,7 @@ func GetCountryInfoHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Use utility function for JSON response with error checking
-	if err := utils.RespondWithJSON(w, countryInfo); err != nil {
+	if err1 := utils.RespondWithJSON(w, countryInfo); err1 != nil {
 		http.Error(w, "Failed to write response", http.StatusInternalServerError)
 	}
 }

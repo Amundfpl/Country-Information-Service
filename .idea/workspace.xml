@@ -8,10 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.github/workflows/workflow.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/workflow.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handlers/country_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/country_handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/home_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/home_handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/population_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/population_handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/status_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/status_handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interntal/utils/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/interntal/utils/response.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interntal/server/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/interntal/server/router.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,27 +47,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build Assignment_1.executor": "Run",
-    "Go Build.go build Assignment_1/cmd/server.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "master",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "C:/Users/amund/Downloads/CountryInfoService-main/CountryInfoService-main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/amund/OneDrive - NTNU/Dokumenter/NTNU_2/Semester_4/CloudTechnologies/Assignment_1/main.go",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;Go Build.go build Assignment_1.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.go build Assignment_1/cmd/server.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/amund/Downloads/CountryInfoService-main/CountryInfoService-main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/amund/OneDrive - NTNU/Dokumenter/NTNU_2/Semester_4/CloudTechnologies/Assignment_1/main.go&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\amund\OneDrive - NTNU\Dokumenter\NTNU_2\Semester_4\CloudTechnologies\Assignment_1\pkg" />

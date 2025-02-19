@@ -16,9 +16,9 @@ func RespondWithJSON(w http.ResponseWriter, data interface{}) error {
 	}
 
 	// Handle the error from w.Write
-	if _, err := w.Write(prettyJSON); err != nil {
+	if _, err1 := w.Write(prettyJSON); err1 != nil {
 		http.Error(w, "Failed to write response", http.StatusInternalServerError)
-		return err
+		return err1
 	}
 
 	return nil

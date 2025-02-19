@@ -19,14 +19,14 @@ func FetchCountryInfo(countryCode, limitStr string) (models.CountryInfo, error) 
 		return models.CountryInfo{}, err
 	}
 
-	fullCountryName, countryData, err := getCountryData(countryCode)
-	if err != nil {
-		return models.CountryInfo{}, err
+	fullCountryName, countryData, err1 := getCountryData(countryCode)
+	if err1 != nil {
+		return models.CountryInfo{}, err1
 	}
 
-	cities, err := fetchCities(fullCountryName, limit)
-	if err != nil {
-		return models.CountryInfo{}, err
+	cities, err2 := fetchCities(fullCountryName, limit)
+	if err2 != nil {
+		return models.CountryInfo{}, err2
 	}
 
 	return formatCountryResponse(fullCountryName, countryData, cities), nil
@@ -38,8 +38,8 @@ func parseLimit(limitStr string, defaultLimit int) (int, error) {
 		return defaultLimit, nil
 	}
 
-	parsedLimit, err := strconv.Atoi(limitStr)
-	if err != nil || parsedLimit <= 0 {
+	parsedLimit, err3 := strconv.Atoi(limitStr)
+	if err3 != nil || parsedLimit <= 0 {
 		return 0, fmt.Errorf("invalid limit parameter")
 	}
 
@@ -49,8 +49,8 @@ func parseLimit(limitStr string, defaultLimit int) (int, error) {
 // getCountryData fetches country details from REST Countries API
 func getCountryData(countryCode string) (string, models.CountryInfoResponse, error) {
 	url := fmt.Sprintf("%s%s%s", utils.RestCountriesAPI, utils.RestCountriesByAlpha, countryCode)
-	resp, err := http.Get(url)
-	if err != nil || resp.StatusCode != http.StatusOK {
+	resp, err4 := http.Get(url)
+	if err4 != nil || resp.StatusCode != http.StatusOK {
 		return "", models.CountryInfoResponse{}, fmt.Errorf("failed to fetch country info")
 	}
 	defer resp.Body.Close()
@@ -58,7 +58,7 @@ func getCountryData(countryCode string) (string, models.CountryInfoResponse, err
 	bodyBytes, _ := io.ReadAll(resp.Body)
 
 	var countryData []models.CountryInfoResponse
-	if err := json.Unmarshal(bodyBytes, &countryData); err != nil || len(countryData) == 0 {
+	if err5 := json.Unmarshal(bodyBytes, &countryData); err5 != nil || len(countryData) == 0 {
 		return "", models.CountryInfoResponse{}, fmt.Errorf("failed to decode country info")
 	}
 
@@ -70,8 +70,8 @@ func fetchCities(countryName string, limit int) ([]string, error) {
 	apiURL := fmt.Sprintf("%s%s", utils.CountriesNowAPI, utils.CountriesNowCities)
 	requestBody, _ := json.Marshal(map[string]string{"country": countryName})
 
-	resp, err := http.Post(apiURL, "application/json", bytes.NewBuffer(requestBody))
-	if err != nil || resp.StatusCode != http.StatusOK {
+	resp, err6 := http.Post(apiURL, "application/json", bytes.NewBuffer(requestBody))
+	if err6 != nil || resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("failed to fetch cities")
 	}
 	defer resp.Body.Close()
@@ -79,7 +79,7 @@ func fetchCities(countryName string, limit int) ([]string, error) {
 	bodyBytes, _ := io.ReadAll(resp.Body)
 
 	var citiesData models.CitiesResponse
-	if err := json.Unmarshal(bodyBytes, &citiesData); err != nil {
+	if err7 := json.Unmarshal(bodyBytes, &citiesData); err7 != nil {
 		return nil, fmt.Errorf("failed to decode cities")
 	}
 

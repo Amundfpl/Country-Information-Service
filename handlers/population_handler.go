@@ -21,7 +21,7 @@ func GetPopulationByYearRangeHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	if err := utils.RespondWithJSON(w, response); err != nil {
+	if err1 := utils.RespondWithJSON(w, response); err1 != nil {
 		http.Error(w, "Failed to write response", http.StatusInternalServerError)
 	}
 }
