@@ -3,11 +3,7 @@ package services
 import (
 	"Assignment_1/interntal/utils"
 	"Assignment_1/models"
-	"bytes"
-	"encoding/json"
 	"fmt"
-	"io"
-	"net/http"
 	"sort"
 	"strconv"
 	"strings"
@@ -17,14 +13,14 @@ import (
 func FetchPopulationByYearRange(countryCode, yearRange string) (map[string]interface{}, error) {
 	countryCode = strings.ToUpper(countryCode)
 
-	fullCountryName, err := getCountryName(countryCode)
-	if err != nil {
-		return nil, err
+	fullCountryName, errCountryName := getCountryName(countryCode)
+	if errCountryName != nil {
+		return nil, errCountryName
 	}
 
-	populationCounts, err1 := fetchPopulationData(fullCountryName)
-	if err1 != nil {
-		return nil, err1
+	populationCounts, errPopulationData := fetchPopulationData(fullCountryName)
+	if errPopulationData != nil {
+		return nil, errPopulationData
 	}
 
 	filteredPopulations := filterPopulationByYearRange(populationCounts, yearRange)
@@ -37,17 +33,11 @@ func FetchPopulationByYearRange(countryCode, yearRange string) (map[string]inter
 // getCountryName fetches the full country name from REST Countries API
 func getCountryName(countryCode string) (string, error) {
 	url := fmt.Sprintf("%s%s%s", utils.RestCountriesAPI, utils.RestCountriesByAlpha, countryCode)
-	resp, err2 := http.Get(url)
-	if err2 != nil {
-		return "", fmt.Errorf("failed to fetch country name: %v", err2)
-	}
-	defer resp.Body.Close()
-
-	bodyBytes, _ := io.ReadAll(resp.Body)
 
 	var countryData []models.CountryInfoResponse
-	if err3 := json.Unmarshal(bodyBytes, &countryData); err3 != nil || len(countryData) == 0 {
-		return "", fmt.Errorf("failed to decode country info")
+	err := utils.GetRequest(url, &countryData)
+	if err != nil || len(countryData) == 0 {
+		return "", fmt.Errorf("failed to fetch country info: %v", err)
 	}
 
 	return countryData[0].Name.Common, nil
@@ -56,18 +46,14 @@ func getCountryName(countryCode string) (string, error) {
 // fetchPopulationData gets population data from CountriesNow API
 func fetchPopulationData(countryName string) ([]models.PopulationCounts, error) {
 	apiURL := fmt.Sprintf("%s%s", utils.CountriesNowAPI, utils.CountriesNowPopulation)
-	requestBody, _ := json.Marshal(map[string]string{"country": countryName})
-
-	resp, err4 := http.Post(apiURL, "application/json", bytes.NewBuffer(requestBody))
-	if err4 != nil {
-		return nil, fmt.Errorf("failed to fetch population data")
-	}
-	defer resp.Body.Close()
-
-	bodyBytes, _ := io.ReadAll(resp.Body)
 
 	var popData models.PopulationResponse
-	if err5 := json.Unmarshal(bodyBytes, &popData); err5 != nil || popData.Error {
+	err := utils.PostRequest(apiURL, map[string]string{"country": countryName}, &popData)
+	if err != nil {
+		return nil, err
+	}
+
+	if popData.Error {
 		return nil, fmt.Errorf("population data not found")
 	}
 
@@ -89,14 +75,24 @@ func filterPopulationByYearRange(populationCounts []models.PopulationCounts, yea
 		return nil
 	}
 
-	startYear, _ := strconv.Atoi(yearParts[0])
-	endYear, _ := strconv.Atoi(yearParts[1])
-
-	if startYear > endYear || startYear == 0 || endYear == 0 {
+	startYear, errStartYear := strconv.Atoi(yearParts[0])
+	if errStartYear != nil {
+		fmt.Println("Warning: invalid start year format:", errStartYear)
 		return nil
 	}
 
-	filtered := []models.PopulationCounts{}
+	endYear, errEndYear := strconv.Atoi(yearParts[1])
+	if errEndYear != nil {
+		fmt.Println("Warning: invalid end year format:", errEndYear)
+		return nil
+	}
+
+	if startYear > endYear || startYear == 0 || endYear == 0 {
+		fmt.Println("Warning: invalid year range:", yearRange)
+		return nil
+	}
+
+	var filtered []models.PopulationCounts
 	for _, pop := range populationCounts {
 		if pop.Year >= startYear && pop.Year <= endYear {
 			filtered = append(filtered, pop)

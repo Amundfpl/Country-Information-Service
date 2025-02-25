@@ -23,11 +23,12 @@ func FetchServiceStatus() models.StatusResponse {
 
 // getAPIStatus checks API availability and returns its status code & text
 func getAPIStatus(url string) string {
-	resp, err := http.Get(url)
+	statusCode, err := utils.GetStatusCode(url)
+
 	if err != nil {
+		fmt.Println("Warning: Failed to fetch API status for", url, "-", err)
 		return "DOWN"
 	}
-	defer resp.Body.Close()
 
-	return fmt.Sprintf("%d %s", resp.StatusCode, http.StatusText(resp.StatusCode))
+	return fmt.Sprintf("%d %s", statusCode, http.StatusText(statusCode))
 }
