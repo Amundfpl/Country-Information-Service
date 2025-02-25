@@ -3,7 +3,7 @@ name: Sync GitHub to GitLab
 on:
   push:
     branches:
-      - master  # Adjust branch if needed
+      - dev  # Adjust branch if needed
 
 jobs:
   sync:
@@ -22,5 +22,5 @@ jobs:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
           git remote add gitlab https://oauth2:$GITLAB_TOKEN@git.gvk.idi.ntnu.no/amundfpl/Country-Information-Service.git
-          git fetch --unshallow  # Ensures history is available
-          git push --force --mirror gitlab
+          git fetch --unshallow  # Ensures full commit history
+          git push gitlab dev:dev  # Push GitHub 'dev' branch to GitLab 'dev' branch
