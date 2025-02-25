@@ -5,7 +5,7 @@ import (
 	"log"
 )
 
-//Updated the gitlab Repository
+// Updated the gitlab Repository
 func main() {
 	log.Println("Starting server...")
 	server.StartServer()

@@ -21,6 +21,6 @@ jobs:
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
-          git remote add gitlab https://oauth2:$GITLAB_TOKEN@https://git.gvk.idi.ntnu.no/course/prog2005/prog2005-2025-workspace/amundfpl/assignment-1
+          git remote add gitlab https://oauth2:$GITLAB_TOKEN@git.gvk.idi.ntnu.no/course/prog2005/prog2005-2025-workspace/amundfpl/assignment-1.git
           git fetch --unshallow  # Ensures full commit history
           git push gitlab dev:dev  # Push GitHub 'dev' branch to GitLab 'dev' branch
