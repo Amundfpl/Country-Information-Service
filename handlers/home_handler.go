@@ -9,6 +9,8 @@ import (
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 
+	baseURL := "http://" + r.Host // Dynamically get host
+
 	html := `
 	<!DOCTYPE html>
 	<html lang="en">
@@ -25,25 +27,40 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 			li { margin-bottom: 8px; }
 			a { color: #007BFF; text-decoration: none; font-weight: bold; }
 			a:hover { text-decoration: underline; }
+			.code-block { background: #272822; color: #fff; padding: 10px; border-radius: 5px; }
 		</style>
 	</head>
 	<body>
 		<h1>Country Information API</h1>
-		<p>This API provides comprehensive information about countries, including general details, population statistics, and external service status.</p>
+		<p><strong>API Version:</strong> v1</p>
+		<p>This API provides country information, population statistics, and service status.</p>
 
 		<h2>Available Endpoints</h2>
 		<ul>
-			<li><a href="/countryinfo/v1/info/NO">/countryinfo/v1/info/{countryCode}</a> - Retrieve general country information</li>
-			<li><a href="/countryinfo/v1/population/NO">/countryinfo/v1/population/{countryCode}</a> - Get historical population data</li>
-			<li><a href="/countryinfo/v1/status">/countryinfo/v1/status</a> - Check API status and uptime</li>
+			<li><a href="` + baseURL + `/countryinfo/v1/info/NO">/countryinfo/v1/info/{countryCode}</a> - Retrieve general country information</li>
+			<li><a href="` + baseURL + `/countryinfo/v1/population/NO">/countryinfo/v1/population/{countryCode}</a> - Get historical population data</li>
+			<li><a href="` + baseURL + `/countryinfo/v1/status">/countryinfo/v1/status</a> - Check API status and uptime</li>
 		</ul>
 
-		<h2>How to Use</h2>
-		<p>You can interact with the API using a web browser or tools such as Postman and cURL.</p>
-		<pre>curl -X GET "http://localhost:8080/countryinfo/v1/info/NO"</pre>
+		<h2>Example API Call</h2>
+		<pre>curl -X GET "` + baseURL + `/countryinfo/v1/info/NO"</pre>
+
+		<h2>Sample JSON Response</h2>
+		<pre class="code-block">
+{
+	"name": "Norway",
+	"continents": ["Europe"],
+	"population": 5391369,
+	"languages": {"nno":"Norwegian Nynorsk", "nob":"Norwegian Bokmål"},
+	"borders": ["FIN","SWE","RUS"],
+	"flag": "https://flagcdn.com/w320/no.png",
+	"capital": "Oslo",
+	"cities": ["Bergen", "Oslo", "Trondheim"]
+}
+		</pre>
 
 		<h2>Notes</h2>
-		<p>Ensure that the API endpoints are correctly formatted. If issues arise, check the status endpoint to verify external API availability.</p>
+		<p>Ensure that API endpoints are correctly formatted. If issues arise, check the <a href="` + baseURL + `/countryinfo/v1/status">status endpoint</a> to verify external API availability.</p>
 	</body>
 	</html>
 	`
