@@ -87,22 +87,13 @@ func GetRequest(url string, responseStruct interface{}) error {
 	return nil
 }
 
-// CloseResponseBody safely closes an HTTP response body and logs any errors.
-func CloseResponseBody(resp *http.Response) {
-	if resp != nil {
-		if err := resp.Body.Close(); err != nil {
-			fmt.Println("Warning: Failed to close response body:", err)
-		}
-	}
-}
-
 // GetStatusCode makes a GET request and returns only the HTTP status code.
 func GetStatusCode(url string) (int, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		return 0, fmt.Errorf("HTTP GET request failed: %v", err)
 	}
-	defer resp.Body.Close()
+	defer CloseResponseBody(resp)
 
 	// Ensure the response is valid
 	if resp.StatusCode != http.StatusOK {
@@ -110,4 +101,13 @@ func GetStatusCode(url string) (int, error) {
 	}
 
 	return resp.StatusCode, nil
+}
+
+// CloseResponseBody safely closes an HTTP response body and logs any errors.
+func CloseResponseBody(resp *http.Response) {
+	if resp != nil {
+		if err := resp.Body.Close(); err != nil {
+			fmt.Println("Warning: Failed to close response body:", err)
+		}
+	}
 }
