@@ -3,10 +3,10 @@ name: Go CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # Runs on pushes to master
+      - dev
   pull_request:
     branches:
-      - master  # Runs on PRs to master
+      - dev
 
 jobs:
   build-and-test:

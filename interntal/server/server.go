@@ -2,10 +2,18 @@ package server
 
 import (
 	"Assignment_1/interntal/utils"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
 )
+
+// Automatically load environment variables from .env
+func init() {
+	if err := godotenv.Load(); err != nil {
+		log.Println(" Warning: No .env file found. Using system environment variables.")
+	}
+}
 
 // StartServer starts the HTTP server
 func StartServer() {
