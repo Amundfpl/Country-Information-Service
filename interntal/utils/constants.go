@@ -1,25 +1,52 @@
 package utils
 
-// API Route Paths
-const (
+import (
+	"log"
+	"os"
+	"strconv"
+)
+
+// Load environment variables with fallbacks
+var (
 	HomeRoute        = "/"
 	CountryInfoRoute = "/countryinfo/v1/info/{countryCode}"
 	PopulationRoute  = "/countryinfo/v1/population/{countryCode}"
 	StatusRoute      = "/countryinfo/v1/status"
 
-	// RestCountriesAPI Base API URLs
-	RestCountriesAPI = "http://129.241.150.113:8080/v3.1"     // Base URL for REST Countries API
-	CountriesNowAPI  = "http://129.241.150.113:3500/api/v0.1" // Base URL for CountriesNow API
+	// API URLs (loaded from environment variables)
+	RestCountriesAPI = getEnv("REST_COUNTRIES_API", "http://129.241.150.113:8080/v3.1")
+	CountriesNowAPI  = getEnv("COUNTRIES_NOW_API", "http://129.241.150.113:3500/api/v0.1")
 
-	// RestCountriesByAlpha REST Countries API Endpoints
-	RestCountriesByAlpha = "/alpha/" // Fetch country by Alpha-2/Alpha-3 code
-	RestCountriesAll     = "/all"    // Fetch all countries (if needed)
+	// API Endpoints
+	RestCountriesByAlpha   = "/alpha/"
+	RestCountriesAll       = "/all"
+	CountriesNowCities     = "/countries/cities"
+	CountriesNowPopulation = "/countries/population"
 
-	// CountriesNowCities CountriesNow API Endpoints
-	CountriesNowCities     = "/countries/cities"     // Fetch cities
-	CountriesNowPopulation = "/countries/population" // Fetch population data
-
-	// DefaultPort Default Settings
-	DefaultPort  = "8080"
-	DefaultLimit = 10
+	// Default Settings
+	DefaultPort  = getEnv("PORT", "8080")
+	DefaultLimit = getEnvInt("DEFAULT_LIMIT", 10)
 )
+
+// Helper function to get environment variable or fallback to default
+func getEnv(key, defaultValue string) string {
+	value := os.Getenv(key)
+	if value == "" {
+		return defaultValue
+	}
+	return value
+}
+
+// Helper function to get environment variable as integer
+func getEnvInt(key string, defaultValue int) int {
+	valueStr := os.Getenv(key)
+	if valueStr == "" {
+		return defaultValue
+	}
+	value, err := strconv.Atoi(valueStr)
+	if err != nil {
+		log.Printf("Warning: Invalid integer for %s. Using default: %d", key, defaultValue)
+		return defaultValue
+	}
+	return value
+}

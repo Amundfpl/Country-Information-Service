@@ -1,97 +1,82 @@
 # Assignment_1 - Country Information API
 
-##  Overview
-This project provides a **RESTful API** that retrieves country-related information, including **general details, population statistics, and API service status.** It is structured using best practices to maintain **scalability, readability, and modularity.**
-
----
+## Overview
+This project provides a **RESTful API** to retrieve country-related information, including **general details, population statistics, and API service status**. The project follows best practices for **scalability, readability, and modularity**.
 
 ## Project Structure
 ```
 Assignment_1/
-│── cmd/               #  Application entry points
+├── .github/workflows/      
+│   ├── sync.yaml           
+│   ├── workflow.yaml
+├── cmd/                    
 │   ├── server/
-│   │   ├── main.go    # Starts the server
-│
-│── internal/          #  Internal code (not importable by other projects)
-│   ├── server/        # Server-related logic
-│   │   ├── server.go  # Initializes the server
-│   │   ├── router.go  # Registers all API routes
-│
-│── handlers/          #  Request handlers (business logic entry point)
-│   ├── country_handler.go  # Handles country information requests
-│   ├── population_handler.go  # Handles population-related requests
-│   ├── status_handler.go  # Handles API status requests
-│
-│── models/            #  Data models (structs for JSON parsing)
-│   ├── country.go  # Structs for country information
-│   ├── population.go  # Structs for population responses
-│   ├── status.go  # Structs for API status response
-│
-│── services/          #  Business logic (core functionality)
-│   ├── country_service.go  # Fetches country info from APIs
-│   ├── population_service.go  # Fetches population data from APIs
-│   ├── status_service.go  # Retrieves API status and uptime
-│
-│── utils/             #  Utility functions (helpers & common functions)
-│   ├── response.go  # Helper functions for handling responses
-│
-│── go.mod             #  Go module file
-│── README.md          #  Documentation
+│   │   ├── main.go
+├── internal/               
+│   ├── server/
+│   │   ├── server.go       
+│   │   ├── router.go       
+│   ├── utils/
+│   │   ├── constants.go    
+│   │   ├── response.go
+├── handlers/               
+│   ├── country_handler.go   
+│   ├── home_handler.go      
+│   ├── population_handler.go  
+│   ├── status_handler.go
+├── models/                 
+│   ├── country.go          
+│   ├── population.go       
+│   ├── status.go
+├── pkg/                    
+│   ├── services/
+│   │   ├── country.go       
+│   │   ├── population.go    
+│   │   ├── status.go
+├── .env                    
+├── go.mod                  
+├── README.md               
+├── .gitignore              
 ```
+## Getting Started
 
----
+### 1. Clone the Repository
+git clone https://github.com/YOUR_USERNAME/Assignment_1.git
+cd Assignment_1
 
-##  Getting Started
-###  Clone the Repository
-```sh
- git clone https://github.com/your-username/Assignment_1.git
- cd Assignment_1
-```
+### 2. Install Dependencies
+go mod tidy
 
-###  Install Dependencies
-```sh
- go mod tidy
-```
-
-###  Set Up Environment Variables
-Create a **.env** file in the root directory and add API URLs:
-```sh
+### 3. Set Up Environment Variables
+Create a **`.env`** file in the root directory and add:
 PORT=8080
 REST_COUNTRIES_API=http://129.241.150.113:8080/v3.1
 COUNTRIES_NOW_API=http://129.241.150.113:3500/api/v0.1
-```
+DEFAULT_LIMIT=10
 
-### Run the Server
-```sh
- go run cmd/server/main.go
-```
+**Make sure to add `.env` to `.gitignore`** so it’s not committed to GitHub.
 
----
+### 4. Run the Server
+go run cmd/server/main.go
+
+If `PORT` is **not set**, it will default to **8080**.
 
 ## API Endpoints
+
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | `/countryinfo/v1/info/{countryCode}` | GET | Retrieve general country information |
 | `/countryinfo/v1/population/{countryCode}` | GET | Get historical population data |
 | `/countryinfo/v1/status` | GET | Check API status and uptime |
 
----
-
-## Project Best Practices
-✔ **Separation of Concerns:** Routes, handlers, services, and models are kept in separate directories.  
-✔ **Scalability:** The modular structure allows easy expansion.  
-✔ **Code Reusability:** Services handle business logic, making handlers simpler.  
-✔ **Readability:** The project follows clean code principles for better maintainability.
-
----
+## Best Practices
+✔ **Uses `.env` for dynamic configuration** (port, API URLs, and limits).  
+✔ **Separation of Concerns** → Routes, handlers, services, and models are structured separately.  
+✔ **Scalability** → Modular structure allows easy expansion.  
+✔ **Code Reusability** → Services handle business logic, making handlers simpler.  
+✔ **Readability** → The project follows **clean code principles** for better maintainability.
 
 ## Contributing
-Feel free to fork this repository and submit pull requests with improvements or bug fixes.
+Feel free to **fork** this repository and submit **pull requests** with improvements or bug fixes.
 
----
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
 
